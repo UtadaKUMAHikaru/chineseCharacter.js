@@ -1,10 +1,11 @@
 function setup() {
   createCanvas(400, 400);
-  background(200);
+  // background(200);
   // background(255);
+  background(0);
 
   // 创建ChineseCharacter实例
-  let myCharacter = new ChineseCharacter("我", 200, "Arial", 300);
+  let myCharacter = new ChineseCharacter("我", 200, "Arial", 400);
   // 接着，调用实例的drawCharacterOnGraphics方法
   myCharacter.drawCharacterOnGraphics();
   myCharacter.invertCharacterCanvasColors();
@@ -13,10 +14,13 @@ function setup() {
 
   myCharacter.drawConcentricCircles();
   myCharacter.invertCirclesCanvasColors();
-  myCharacter.drawCirclesCanvas();
+  // myCharacter.drawCirclesCanvas();
 
   myCharacter.findEllipseSegments();
-  myCharacter.visualizeSegmentsWithColors();
+
+  // 输出结果，检查segments是否符合预期
+  console.log(myCharacter.ellipseSegments);
+  // myCharacter.visualizeSegmentsWithColors();
   
 
 }
