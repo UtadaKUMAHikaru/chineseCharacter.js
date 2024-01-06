@@ -1,4 +1,3 @@
-
 class ChineseCharacter {
   constructor(character, fontSize, fontName, canvasSize) {
     this.character = character;
