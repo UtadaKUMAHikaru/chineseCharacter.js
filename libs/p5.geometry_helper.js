@@ -23,39 +23,7 @@ ChineseCharacter.prototype.drawCharacterOnGraphics = function () {
   this.characterCanvas = characterCanvas;
 };
 
-// ChineseCharacter.prototype.invertCharacterCanvasColors = function() {
-//   // 确保characterGraphics和characterArray已经定义并且包含数据
-//   if (!this.characterCanvas || !this.characterArray) {
-//       console.error("Please draw the character first using drawCharacterOnGraphics method.");
-//       return;
-//   }
-
-//   // 加载graphics对象上的像素数据到 graphicsPixels 数组
-//   let characterGraphics = this.characterCanvas;
-//   characterGraphics.loadPixels();
-//   let graphicsPixels = characterGraphics.pixels;
-
-//   // 遍历像素并取反颜色
-//   for (let i = 0; i < graphicsPixels.length; i += 4) {
-//       graphicsPixels[i] = 255 - graphicsPixels[i];     // 取反红色分量
-//       graphicsPixels[i + 1] = 255 - graphicsPixels[i + 1]; // 取反绿色分量
-//       graphicsPixels[i + 2] = 255 - graphicsPixels[i + 2]; // 取反蓝色分量
-//       // Alpha通道不变（如果需要，也可以取反）
-//   }
-
-//   // 将修改后的像素数据反映到graphics对象上
-//   characterGraphics.updatePixels();
-
-//   // 更新 characterArray 成员变量
-//   this.characterArray = graphicsPixels;
-
-//   // 更新 characterCanvas 成员变量，虽然在实际上已经被直接修改了
-//   this.characterCanvas = characterGraphics;
-// };
-
-// 定义一个辅助函数来反转颜色
-// function invertColors(graphicsObject, pixelsArray) {
-  function invertColors(graphicsObject) {
+function invertColors(graphicsObject) {
   graphicsObject.loadPixels();  // 确保最新的像素数据被加载
   pixelsArray = graphicsObject.pixels;
   for (let i = 0; i < pixelsArray.length; i += 4) {
@@ -84,11 +52,40 @@ ChineseCharacter.prototype.invertCharacterCanvasColors = function() {
   // 因为它在实际上已经被invertColors函数直接修改了
 };
 
+ChineseCharacter.prototype.invertCirclesCanvasColors = function() {
+  if (!this.circlesCanvas || !this.circlesArray) {
+      console.error("Please draw the character first using drawCharacterOnGraphics method.");
+      return;
+  }
+
+  // 调用invertColors函数来反转颜色
+  invertColors(this.circlesCanvas);
+
+  // 更新 characterArray 成员变量
+  this.circlesArray = this.circlesCanvas.pixels;
+
+  // 这里不需要再次更新 characterCanvas 成员变量，
+  // 因为它在实际上已经被invertColors函数直接修改了
+};
+
 ChineseCharacter.prototype.drawCharacterCanvas = function () {
   image(this.characterCanvas, 0, 0);
 }
 
 ChineseCharacter.prototype.drawConcentricCircles = function () {
+    // // 同心圆数量
+  // let numCircles = 10;
+  // // 最小半径
+  // let minRadius = 20;
+  // // 最大半径
+  // let maxRadius = 100;
+  // // 每个椭圆上的点数
+  // let numPoints = 100;
+
+  // let ellipsePoints = {}; // 存储椭圆点
+
+  // let centerX = width / 2;
+  // let centerY = height / 2;
 
   // 创建ConcentricCircles的实例，你可以设置参数来匹配你的需求
   this.backgroundCircles = new ConcentricCircles(10, 20, 100, 100, this.canvasSize / 2, this.canvasSize / 2);
@@ -96,6 +93,8 @@ ChineseCharacter.prototype.drawConcentricCircles = function () {
   let { circlesCanvas, circlesArray } = this.backgroundCircles.draw();
   this.circlesArray = circlesArray;
   this.circlesCanvas = circlesCanvas;
+
+  this.ellipsePoints = this.backgroundCircles.ellipsePoints;
 }
 
 ChineseCharacter.prototype.drawCirclesCanvas = function () {

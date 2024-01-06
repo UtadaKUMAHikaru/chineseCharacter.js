@@ -10,6 +10,130 @@ class ChineseCharacter {
 
 p5.prototype.ChineseCharacter = ChineseCharacter;
 
+ChineseCharacter.prototype.visualizeSegmentsWithColors = function() {
+  // (image_size, image_size, ellipse_segments, scale_factor)
+  // Define a function to visualize segments with random colors
+// function visualizeSegmentsWithColors(originalWidth, originalHeight, segments, scaleFactor) {
+  originalWidth = width;
+  originalHeight = height ;
+  segments = this.segments ;
+  scaleFactor = 2;
+  createCanvas(originalWidth, originalHeight);
+  background(0); // Set background to black
+
+  // Loop through each segment and draw
+  for (let ellipse in segments) {
+      let segList = segments[ellipse];
+      segList.forEach(segment => {
+          if (segment.length > 1) {
+              // Generate a random color
+              let color = [random(255), random(255), random(255)];
+              stroke(color); // Set stroke color
+              strokeWeight(1); // Set stroke weight
+
+              // Draw the line for each segment
+              beginShape();
+              segment.forEach(point => {
+                  let scaledX = point[0] / scaleFactor;
+                  let scaledY = point[1] / scaleFactor;
+                  vertex(scaledX, scaledY); // Draw vertex for each point
+              });
+              endShape();
+          }
+      });
+  }
+// }
+
+}
+
+ChineseCharacter.prototype.findEllipseSegments = function() {
+  // ellipse_segments = findEllipseSegments(ellipse_points, new_hanzi_array, width, height, scale_factor, THRESHOLD)
+  // function findEllipseSegments(ellipsePoints, array, width, height, scaleFactor, THRESHOLD) {
+  ellipsePoints = this.ellipsePoints;
+  array = this.characterArray;
+  // width, height, 
+  scaleFactor = 2;
+  // THRESHOLD = 200 ;
+
+    let segments = {};
+
+    for (let ellipse in ellipsePoints) {
+        let points = ellipsePoints[ellipse];
+        let localMask = new cv.Mat.zeros(height, width, cv.CV_8UC1);
+
+        points.forEach(point => {
+            let ix = parseInt(point[0] / scaleFactor);
+            let iy = parseInt(point[1] / scaleFactor);
+            if (0 <= ix && ix < width && 0 <= iy && iy < height && array[iy][ix] > THRESHOLD) {
+                localMask.ucharPtr(iy, ix)[0] = 255;
+            }
+        });
+
+        let numLabels = new cv.Mat();
+        let labels = new cv.Mat();
+        let stats = new cv.Mat();
+        let centroids = new cv.Mat();
+        cv.connectedComponentsWithStats(localMask, labels, stats, centroids);
+
+        // Assuming ellipse_points are in the format [{x,y}, {x,y}, ...]
+        let meanX = points.reduce((acc, p) => acc + p[0], 0) / points.length;
+        let meanY = points.reduce((acc, p) => acc + p[1], 0) / points.length;
+        let center_x = meanX / scaleFactor;
+        let center_y = meanY / scaleFactor;
+
+        let ellipse_segments = [];
+        for (let i = 1; i < numLabels; i++) {
+            let componentMask = labels === i;  // Mask for the current component
+            let segment_points = [];
+            let angles = [];
+        
+            // Extracting points and their angles for the current component
+            componentMask.forEach((value, idx) => {
+                if (value) {
+                    let y = Math.floor(idx / width);
+                    let x = idx % width;
+                    let adjustedX = x * scaleFactor;  // Adjust coordinates based on scale factor
+                    let adjustedY = y * scaleFactor;
+                    let angle = Math.atan2(adjustedY - center_y, adjustedX - center_x);
+                    angles.push(angle);
+                    segment_points.push([adjustedX, adjustedY]);
+                }
+            });
+        
+            // Sort points by angle
+            let pointsWithAngles = segment_points.map((point, idx) => ({ point: point, angle: angles[idx] }));
+            pointsWithAngles.sort((a, b) => a.angle - b.angle);
+        
+            // Split points into segments based on angle difference
+            let currentSegment = [pointsWithAngles[0]];
+            for (let j = 1; j < pointsWithAngles.length; j++) {
+                if (Math.abs(pointsWithAngles[j].angle - currentSegment[currentSegment.length - 1].angle) > Math.PI / 6) {
+                    ellipse_segments.push(currentSegment);
+                    currentSegment = [pointsWithAngles[j]];
+                } else {
+                    currentSegment.push(pointsWithAngles[j]);
+                }
+            }
+            if (currentSegment.length > 0) {
+                ellipse_segments.push(currentSegment);  // Add the last segment
+            }
+        }
+        
+        segments[ellipse] = ellipse_segments;  // Store the segments for the current ellipse
+        
+        // Clean up OpenCV.js Mats when done
+        localMask.delete();
+        labels.delete();
+        stats.delete();
+        centroids.delete();
+        
+    }
+
+    this.ellipseSegments = segments;
+//     return segments;
+//  }
+
+}
 
 
 
@@ -38,7 +162,5 @@ const MAX_RADIUS = Math.min(WIDTH, HEIGHT) / 2;
 
 
 
-character = "樂"
-let ellipse_points = {} ;
 
 

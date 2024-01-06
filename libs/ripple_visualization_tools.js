@@ -1,31 +1,3 @@
-// Define a function to visualize segments with random colors
-function visualizeSegmentsWithColors(originalWidth, originalHeight, segments, scaleFactor) {
-    createCanvas(originalWidth, originalHeight);
-    background(0); // Set background to black
-
-    // Loop through each segment and draw
-    for (let ellipse in segments) {
-        let segList = segments[ellipse];
-        segList.forEach(segment => {
-            if (segment.length > 1) {
-                // Generate a random color
-                let color = [random(255), random(255), random(255)];
-                stroke(color); // Set stroke color
-                strokeWeight(1); // Set stroke weight
-
-                // Draw the line for each segment
-                beginShape();
-                segment.forEach(point => {
-                    let scaledX = point[0] / scaleFactor;
-                    let scaledY = point[1] / scaleFactor;
-                    vertex(scaledX, scaledY); // Draw vertex for each point
-                });
-                endShape();
-            }
-        });
-    }
-}
-
 // Define a function to visualize segments with transparency
 function visualizeSegmentsWithTransparency(originalWidth, originalHeight, segments, scaleFactor, enableTransparency = true) {
     createCanvas(originalWidth, originalHeight);
