@@ -23,6 +23,11 @@ class ConcentricCircles {
     draw() {
       // Create a p5.Graphics object as a separate canvas
       let circlesCanvas = createGraphics(width, height);
+	// 这句话非常重要！！！！！！
+	  
+	  circlesCanvas.pixelDensity(1);
+
+	  console.log(`createGraphics width ${width}, height ${height}`)
   
       // Set graphics characteristics
       circlesCanvas.noFill();

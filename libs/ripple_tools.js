@@ -50,10 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     visualizeSegmentsWithSupersampling(originalWidth, originalHeight, segments, scaleFactor);
-// });
-
 function visualizeSegmentsWithSupersampling(originalWidth, originalHeight, segments, scaleFactor, supersamplingFactor = 3) {
     const largeWidth = originalWidth * supersamplingFactor;
     const largeHeight = originalHeight * supersamplingFactor;
