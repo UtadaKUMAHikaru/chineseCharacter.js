@@ -31,6 +31,7 @@ ChineseCharacter.prototype.visualizeSegmentsWithColors = function () {
 	for (let ellipse in segments) {
 		let segList = segments[ellipse];
 		segList.forEach(segment => {
+			
 			if (segment.length > 1) {
 				// Generate a random color
 				let color = [random(255), random(255), random(255)];
@@ -40,8 +41,11 @@ ChineseCharacter.prototype.visualizeSegmentsWithColors = function () {
 				// Draw the line for each segment
 				beginShape();
 				segment.forEach(point => {
-					let scaledX = point['x'] / scaleFactor;
-					let scaledY = point['y'] / scaleFactor;
+					console.log("point: ", point);
+					// let scaledX = point['x'] / scaleFactor;
+					// let scaledY = point['y'] / scaleFactor;
+					let scaledX = point.point[0] / scaleFactor;
+					let scaledY = point.point[1] / scaleFactor;
 					vertex(scaledX, scaledY); // Draw vertex for each point
 				});
 				endShape();
@@ -184,18 +188,8 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 
 			// Extracting points and their angles for the current component
 			labeledPoints.forEach(point => {
-				// componentMask.forEach((value, idx) => {
-				// if (value) {
-				// 	let y = Math.floor(idx / width);
-				// 	let x = idx % width;
-				// 	let adjustedX = x * scaleFactor; // Adjust coordinates based on scale factor
-				// 	let adjustedY = y * scaleFactor;
-				// 	let angle = Math.atan2(adjustedY - center_y, adjustedX - center_x);
-				// 	angles.push(angle);
-				// 	segment_points.push([adjustedX, adjustedY]);
-				// }
-				let y = point["x"];
-				let x = point["y"];
+				let x = point["x"];
+				let y = point["y"];
 				let adjustedX = x * scaleFactor; // Adjust coordinates based on scale factor
 				let adjustedY = y * scaleFactor;
 				let angle = Math.atan2(adjustedY - center_y, adjustedX - center_x);
@@ -224,15 +218,16 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 				ellipse_segments.push(currentSegment); // Add the last segment
 			}
 
-			console.log("ellipse_segments: ", ellipse_segments);
+			// console.log("ellipse_segments: ", ellipse_segments);
 
 			// 绘制当前椭圆段
 			ellipse_segments.forEach(segment => {
 				// 绘制每个点或者用线连接点
 				segment.forEach(point => {
 
-					console.log("point: ", point);
+					// console.log("point: ", point);
 					// drawEllipsePoint(point.point[0], point.point[1]);
+					;
 					// drawEllipsePoint(point.point['x'], point.point['y']);
 					// drawEllipsePoint(point['x'], point['y']);
 				});

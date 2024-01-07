@@ -29,7 +29,7 @@ ChineseCharacter.prototype.drawCharacterOnGraphics = function () {
 
 ChineseCharacter.prototype.drawConcentricCircles = function () {
 	// 同心圆数量
-	let numCircles = 10;
+	let numCircles = 100;
 	// 最小半径
 	let minRadius = 20;
 	// 最大半径
