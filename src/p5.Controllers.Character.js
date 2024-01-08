@@ -4,7 +4,6 @@ p5.prototype.ChineseCharacter.prototype.plotCharacter = function (fontSize, font
 	
 	// Create a p5.Graphics object as a separate canvas
 	let characterCanvas = createGraphics(this.fontCanvasSize, this.fontCanvasSize);
-
 	// 这句话非常重要！！！！！！
 	characterCanvas.pixelDensity(1);
 
@@ -23,8 +22,12 @@ p5.prototype.ChineseCharacter.prototype.plotCharacter = function (fontSize, font
 
 	this.characterCanvas = characterCanvas;
 	this.characterArray = characterCanvas.pixels; // This is the array representation of your graphics
+	// console.log("this.characterCanvas.width: ", this.characterCanvas.width)
+	// console.log("this.characterCanvas.height: ", this.characterCanvas.height)
+	// console.log("this.characterArray: ", this.characterArray)
 	
 	this.characterGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.characterCanvas, this.characterArray);
+	// console.log("this.characterGrayScaleMatrix: ", this.characterGrayScaleMatrix)
 };
 
 p5.prototype.ChineseCharacter.prototype.showCharacter = function () {

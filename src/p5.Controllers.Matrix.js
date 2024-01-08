@@ -14,8 +14,10 @@ function convertArrayToGrayScaleMatrix(canvas, array) {
 	//遍历pixels数组，每四个元素代表一个像素的RGBA值
 	for (let i = 0; i < array.length; i += 4) {
 		//计算当前像素的行和列
-		let row = Math.floor(i / (4 * width));
-		let col = (i / 4) % width;
+		// let row = Math.floor(i / (4 * width));
+		// let col = (i / 4) % width;
+		let row = Math.floor(i / (4 * canvas.width));
+		let col = (i / 4) % canvas.width;
 		//如果矩阵的第row行不存在，就创建一个空数组
 		if (!matrix[row]) {
 		  matrix[row] = [];

@@ -23,7 +23,7 @@ p5.prototype.ChineseCharacter.prototype.plotConcentricCircles = function (numCir
 
 	// 然后，获取了this对象的一个属性，characterGrayScaleMatrix，这是一个二维数组，表示一个汉字的灰度矩阵，即每个像素的灰度值。同时，定义了一个布尔变量insideChar，初始值为false，表示当前点是否在汉字的内部。
 	let array = this.characterGrayScaleMatrix;
-	console.log("array:", array);
+	// console.log("array:", array);
 
 	for (let i = 0; i < this.numCircles; i++) { // 用一个for循环，从0到numCircles-1，遍历每个同心圆。在每次循环中，先根据最小半径，最大半径和圆的序号，计算出当前圆的半径。然后，初始化一个空数组，用来存储当前圆上的点的坐标，将其赋值给this对象的ellipsePoints对象的第i个属性。
 
@@ -41,10 +41,8 @@ p5.prototype.ChineseCharacter.prototype.plotConcentricCircles = function (numCir
 			let angle = TWO_PI * j / numPoints;
 			let x = this.centerX + radius * cos(angle);
 			let y = this.centerY + radius * sin(angle);
-			let ix = parseInt(x / scaleFactor);
-			let iy = parseInt(y / scaleFactor);
-			console.log("iy, ix:", iy, ix);
-			console.log("array[iy][ix]:", array[iy][ix]);
+			let ix = parseInt(x);
+			let iy = parseInt(y);
 			if (array[iy][ix] <= this.defaultConfig.PIXEL_THRESHOLD) {
 				offset = j; // 设置offset为当前点的索引
 				break;
@@ -58,8 +56,8 @@ p5.prototype.ChineseCharacter.prototype.plotConcentricCircles = function (numCir
 			let angle = TWO_PI * idx / numPoints;
 			let x = this.centerX + radius * cos(angle);
 			let y = this.centerY + radius * sin(angle);
-			let ix = parseInt(x / scaleFactor);
-			let iy = parseInt(y / scaleFactor);
+			let ix = parseInt(x);
+			let iy = parseInt(y);
 			let currentInsideChar = array[iy][ix] > this.defaultConfig.PIXEL_THRESHOLD;
 
 			if (currentInsideChar && !insideChar) {

@@ -5,7 +5,6 @@
 
 //     segmentCanvas.background(255); // 设置背景颜色
 //     segments = this.ellipseSegments;
-//     scaleFactor = 1;
 
 // 	console.log("segments: ", segments);
 
@@ -52,7 +51,7 @@
 // }
 
 // Define a function to visualize segments with transparency
-function visualizeSegmentsWithTransparency(originalWidth, originalHeight, segments, scaleFactor, enableTransparency = true) {
+function visualizeSegmentsWithTransparency(originalWidth, originalHeight, segments, enableTransparency = true) {
     createCanvas(originalWidth, originalHeight);
     background(0, 0, 0, 0); // Set background to transparent
 
@@ -71,55 +70,11 @@ function visualizeSegmentsWithTransparency(originalWidth, originalHeight, segmen
                     strokeWeight(1); // Set stroke weight
 
                     // Scale points and draw line
-                    let p1 = createVector(segment[i][0] / scaleFactor, segment[i][1] / scaleFactor);
-                    let p2 = createVector(segment[i + 1][0] / scaleFactor, segment[i + 1][1] / scaleFactor);
+                    let p1 = createVector(segment[i][0], segment[i][1]);
+                    let p2 = createVector(segment[i + 1][0], segment[i + 1][1]);
                     line(p1.x, p1.y, p2.x, p2.y); // Draw line between points
                 }
             }
         });
     }
 }
-
-// function visualizeSegmentsWithSupersampling(originalWidth, originalHeight, segments, scaleFactor, supersamplingFactor = 3) {
-//     const largeWidth = originalWidth * supersamplingFactor;
-//     const largeHeight = originalHeight * supersamplingFactor;
-
-//     // Prepare the canvas and context for drawing
-//     const canvas = document.getElementById('canvas');
-//     canvas.width = largeWidth;  // Set canvas size to large dimensions for supersampling
-//     canvas.height = largeHeight;
-//     const ctx = canvas.getContext('2d');
-
-//     // Set background to black
-//     ctx.fillStyle = 'black';
-//     ctx.fillRect(0, 0, largeWidth, largeHeight);
-
-//     // Draw each segment
-//     ctx.strokeStyle = 'white';
-//     ctx.lineWidth = supersamplingFactor;  // Adjust line width based on supersampling factor
-//     for (let ellipse in segments) {
-//         segments[ellipse].forEach(segment => {
-//             if (segment.length > 1) {
-//                 // Scale and draw each segment
-//                 ctx.beginPath();
-//                 let scaledSegment = segment.map(point => ({
-//                     x: point[0] / scaleFactor * supersamplingFactor,
-//                     y: point[1] / scaleFactor * supersamplingFactor
-//                 }));
-//                 ctx.moveTo(scaledSegment[0].x, scaledSegment[0].y); // Move to the start of the segment
-//                 scaledSegment.forEach(point => ctx.lineTo(point.x, point.y)); // Draw lines through segment points
-//                 ctx.stroke();
-//             }
-//         });
-//     }
-
-//     // Resizing canvas to original dimensions with supersampling effect using drawImage
-//     const finalCanvas = document.createElement('canvas');
-//     finalCanvas.width = originalWidth;
-//     finalCanvas.height = originalHeight;
-//     const finalCtx = finalCanvas.getContext('2d');
-//     finalCtx.drawImage(canvas, 0, 0, largeWidth, largeHeight, 0, 0, originalWidth, originalHeight);
-
-//     // Replacing the large canvas with the resized one
-//     canvas.parentNode.replaceChild(finalCanvas, canvas);
-// }
