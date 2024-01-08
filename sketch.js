@@ -1,17 +1,26 @@
 // 使用p5.js和OpenCV.js来进行中文字符的可视化处理
+// 设置函数
+function setup() {
+	// 创建一个 ChineseCharacter 类的实例，用于表示和处理中文字符。
+	let myCharacter = new ChineseCharacter("我", "Arial");
 
-function main(){
-	// 创建一个 ChineseCharacter 类的实例，这个类可能是自定义的，用于表示和处理中文字符。
-	let myCharacter = new ChineseCharacter("我", IMAGE_SIZE / 2, "Arial", IMAGE_SIZE);
+	createCanvas(myCharacter.defaultConfig.IMAGE_SIZE, myCharacter.defaultConfig.IMAGE_SIZE); 
+	background(0); // 255 0 
+
 	// 接着，调用实例的plotCharacter方法
-	myCharacter.plotCharacter(); // ChineseCharacter 类的方法，可能用于绘制、反转颜色、找到椭圆段和可视化等任务。
+	myCharacter.plotCharacter(myCharacter.defaultConfig.IMAGE_SIZE*2/3, myCharacter.defaultConfig.IMAGE_SIZE); // ChineseCharacter 类的方法，用于绘制、反转颜色、找到椭圆段和可视化等任务。
 	myCharacter.invertCharacterCanvasColors();
 	// Now, draw the separate graphics object onto the main canvas
-	myCharacter.showCharacter();
+	// myCharacter.showCharacter();
 
-	myCharacter.plotConcentricCircles();
+	myCharacter.plotConcentricCircles(
+		numCircles = myCharacter.defaultConfig.NUM_CIRCLES, // 同心圆数量，默认为全局常量NUM_CIRCLES
+		minRadius = myCharacter.defaultConfig.MIN_RADIUS, // 最小半径，默认为20
+		maxRadius = myCharacter.defaultConfig.IMAGE_SIZE / 2, // 最大半径，默认为WIDTH和HEIGHT的较小者的一半
+		numPoints = myCharacter.defaultConfig.NUM_POINTS // 每个椭圆上的点数，默认为全局常量NUM_POINTS
+	);
 	myCharacter.invertCirclesCanvasColors();
-	// myCharacter.showConcentricCircles();
+	myCharacter.showConcentricCircles();
 
 	myCharacter.findEllipseSegments();
 
@@ -28,14 +37,8 @@ function main(){
 
 	// myCharacter.visualizeSegmentsWithColors();
 	// myCharacter.showSegmentCanvas();
-	
-}
 
-// 设置函数
-function setup() {
-	createCanvas(IMAGE_SIZE, IMAGE_SIZE); // 创建一个400x400像素的画布。
-	background(255); // 255 0 
-	main();
+
 }
 
 // 绘制函数

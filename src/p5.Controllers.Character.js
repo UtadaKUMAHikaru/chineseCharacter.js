@@ -1,4 +1,7 @@
-p5.prototype.ChineseCharacter.prototype.plotCharacter = function () {
+p5.prototype.ChineseCharacter.prototype.plotCharacter = function (fontSize, canvasSize) {
+	this.fontSize = fontSize;
+	this.canvasSize = canvasSize;
+	
 	// Create a p5.Graphics object as a separate canvas
 	let characterCanvas = createGraphics(this.canvasSize, this.canvasSize);
 

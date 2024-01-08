@@ -21,7 +21,7 @@ p5.prototype.ChineseCharacter.prototype.findEllipseSegments = function () {
 		points.forEach(point => {
 			let ix = parseInt(point['x'] / scaleFactor);
 			let iy = parseInt(point['y'] / scaleFactor);
-			if (0 <= ix && ix < width && 0 <= iy && iy < height && array[iy][ix] > PIXEL_THRESHOLD) {
+			if (0 <= ix && ix < width && 0 <= iy && iy < height && array[iy][ix] > this.defaultConfig.PIXEL_THRESHOLD) {
 				localMask.ucharPtr(iy, ix)[0] = 255;
 			}
 		});

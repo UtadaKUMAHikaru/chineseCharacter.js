@@ -1,27 +1,58 @@
 p5.prototype.ChineseCharacter.prototype.plotConcentricCircles = function (
-    numCircles = NUM_CIRCLES,  // 同心圆数量，默认为全局常量NUM_CIRCLES
-    minRadius = 20,            // 最小半径，默认为20
-    maxRadius = Math.min(WIDTH, HEIGHT) / 2,  // 最大半径，默认为WIDTH和HEIGHT的较小者的一半
-    numPoints = NUM_POINTS     // 每个椭圆上的点数，默认为全局常量NUM_POINTS
+	numCircles,
+	minRadius, // 最小半径，默认为20
+	maxRadius, // 最大半径，默认为WIDTH和HEIGHT的较小者的一半
+	numPoints // 每个椭圆上的点数，默认为全局常量NUM_POINTS
 ) {
-    const centerX = this.canvasSize / 2;
-    const centerY = this.canvasSize / 2;
+	this.numCircles = numCircles;
+	this.minRadius = minRadius;
+	this.maxRadius = maxRadius;
+	this.numPoints = numPoints;
+	this.centerX = this.canvasSize / 2;
+	this.centerY = this.canvasSize / 2;
 
-    // 创建ConcentricCircles的实例，使用传入的参数或默认值
-    this.backgroundCircles = new ConcentricCircles(numCircles, minRadius, maxRadius, numPoints, centerX, centerY);
-    let {
-        circlesCanvas,
-        circlesArray
-    } = this.backgroundCircles.draw();
-    this.circlesArray = circlesArray;
-    this.circlesCanvas = circlesCanvas;
+	this.ellipsePoints = {};
 
-    this.ellipsePoints = this.backgroundCircles.ellipsePoints;
+	// Create a p5.Graphics object as a separate canvas
+	let circlesCanvas = createGraphics(width, height);
+	// 这句话非常重要！！！！！！
 
-    this.circlesGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.circlesCanvas, this.circlesArray);
+	circlesCanvas.pixelDensity(1);
+
+	console.log(`createGraphics width ${width}, height ${height}`)
+
+	// Set graphics characteristics
+	circlesCanvas.noFill();
+	circlesCanvas.stroke(0);
+
+	for (let i = 0; i < this.numCircles; i++) {
+		let radius = this.minRadius + i * (this.maxRadius - this.minRadius) / this.numCircles;
+		this.ellipsePoints[i] = this.getEllipsePoints(this.centerX, this.centerY, radius, radius, this.numPoints);
+		circlesCanvas.ellipse(this.centerX, this.centerY, radius * 2, radius * 2);
+	}
+
+	// Extract pixel array from the graphics object
+	circlesCanvas.loadPixels();
+	let circlesArray = circlesCanvas.pixels; // This is the array representation of your graphics
+
+	this.circlesArray = circlesArray;
+	this.circlesCanvas = circlesCanvas;
+
+	this.circlesGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.circlesCanvas, this.circlesArray);
 }
 
 p5.prototype.ChineseCharacter.prototype.showConcentricCircles = function () {
 	// Use the canvas or pixels as you wish
 	image(this.circlesCanvas, 0, 0); // For example, draw the canvas to the main display
+}
+
+p5.prototype.ChineseCharacter.prototype.getEllipsePoints = function (centerX, centerY, radiusX, radiusY, numPoints) {
+	let points = [];
+	for (let i = 0; i < numPoints; i++) {
+		let angle = TWO_PI * i / numPoints;
+		let x = centerX + radiusX * cos(angle);
+		let y = centerY + radiusY * sin(angle);
+		points.push(createVector(x, y));
+	}
+	return points;
 }
