@@ -123,4 +123,3 @@ function visualizeSegmentsWithTransparency(originalWidth, originalHeight, segmen
 //     // Replacing the large canvas with the resized one
 //     canvas.parentNode.replaceChild(finalCanvas, canvas);
 // }
-
