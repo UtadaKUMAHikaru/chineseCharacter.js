@@ -1,4 +1,4 @@
-ChineseCharacter.prototype.findEllipseSegments = function () {
+p5.prototype.ChineseCharacter.prototype.findEllipseSegments = function () {
 	ellipsePoints = this.ellipsePoints;
 
 	array = this.characterGrayScaleMatrix;
@@ -97,7 +97,7 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 	this.ellipseSegments = segments;
 }
 
-// ChineseCharacter.prototype.findEllipseSegments = function () {
+// p5.prototype.ChineseCharacter.prototype.findEllipseSegments = function () {
 // 	ellipsePoints = this.ellipsePoints;
 
 // 	array = this.characterGrayScaleMatrix;

@@ -33,10 +33,6 @@ function main(){
 
 // 设置函数
 function setup() {
-	const IMAGE_SIZE = 1200; // 400 1200
-	const WIDTH = IMAGE_SIZE;
-	const HEIGHT = IMAGE_SIZE;
-
 	createCanvas(IMAGE_SIZE, IMAGE_SIZE); // 创建一个400x400像素的画布。
 	background(255); // 255 0 
 	main();

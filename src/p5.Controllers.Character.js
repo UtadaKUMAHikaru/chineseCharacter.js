@@ -1,4 +1,4 @@
-ChineseCharacter.prototype.plotCharacter = function () {
+p5.prototype.ChineseCharacter.prototype.plotCharacter = function () {
 	// Create a p5.Graphics object as a separate canvas
 	let characterCanvas = createGraphics(this.canvasSize, this.canvasSize);
 
@@ -24,6 +24,6 @@ ChineseCharacter.prototype.plotCharacter = function () {
 	this.characterGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.characterCanvas, this.characterArray);
 };
 
-ChineseCharacter.prototype.showCharacter = function () {
+p5.prototype.ChineseCharacter.prototype.showCharacter = function () {
 	image(this.characterCanvas, 0, 0);
 }

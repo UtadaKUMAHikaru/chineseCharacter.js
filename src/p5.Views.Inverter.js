@@ -11,7 +11,7 @@ function invertColors(graphicsObject) {
 }
 
 // 修改ChineseCharacter类的方法来使用新的invertColors函数
-ChineseCharacter.prototype.invertCharacterCanvasColors = function () {
+p5.prototype.ChineseCharacter.prototype.invertCharacterCanvasColors = function () {
 	if (!this.characterCanvas || !this.characterArray) {
 		console.error("Please draw the character first.");
 		return;
@@ -29,7 +29,7 @@ ChineseCharacter.prototype.invertCharacterCanvasColors = function () {
 	// 因为它在实际上已经被invertColors函数直接修改了
 };
 
-ChineseCharacter.prototype.invertCirclesCanvasColors = function () {
+p5.prototype.ChineseCharacter.prototype.invertCirclesCanvasColors = function () {
 	if (!this.circlesCanvas || !this.circlesArray) {
 		console.error("Please draw the character first.");
 		return;

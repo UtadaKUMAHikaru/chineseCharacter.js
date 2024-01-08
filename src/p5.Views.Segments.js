@@ -1,4 +1,4 @@
-ChineseCharacter.prototype.visualizeSegmentsWithColors = function () {
+p5.prototype.ChineseCharacter.prototype.visualizeSegmentsWithColors = function () {
     // 创建一个新的p5.Graphics对象作为独立的画布
     let segmentCanvas = createGraphics(this.canvasSize, this.canvasSize);
     segmentCanvas.pixelDensity(1); // 设置像素密度
@@ -42,7 +42,7 @@ ChineseCharacter.prototype.visualizeSegmentsWithColors = function () {
     this.segmentCanvas = segmentCanvas;
 };
 
-ChineseCharacter.prototype.showSegmentCanvas = function() {
+p5.prototype.ChineseCharacter.prototype.showSegmentCanvas = function() {
     if (this.segmentCanvas) {
         // 使用p5.js的image函数来绘制存储在segmentCanvas中的图形
         image(this.segmentCanvas, 0, 0); // 将segmentCanvas绘制到主显示画布的左上角
