@@ -1,4 +1,4 @@
-ChineseCharacter.prototype.drawCharacterOnGraphics = function () {
+ChineseCharacter.prototype.plotCharacter = function () {
 	// Create a p5.Graphics object as a separate canvas
 	let characterCanvas = createGraphics(this.canvasSize, this.canvasSize);
 
@@ -24,33 +24,29 @@ ChineseCharacter.prototype.drawCharacterOnGraphics = function () {
 	this.characterGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.characterCanvas, this.characterArray);
 };
 
-ChineseCharacter.prototype.drawConcentricCircles = function () {
-	// 同心圆数量
-	let numCircles = NUM_CIRCLES;
-	// 最小半径
-	let minRadius = 20;
-	// 最大半径
-	let maxRadius = MAX_RADIUS;
-	// 每个椭圆上的点数
-	let numPoints = NUM_POINTS;
+ChineseCharacter.prototype.plotConcentricCircles = function (
+    numCircles = NUM_CIRCLES,  // 同心圆数量，默认为全局常量NUM_CIRCLES
+    minRadius = 20,            // 最小半径，默认为20
+    maxRadius = Math.min(WIDTH, HEIGHT) / 2,  // 最大半径，默认为WIDTH和HEIGHT的较小者的一半
+    numPoints = NUM_POINTS     // 每个椭圆上的点数，默认为全局常量NUM_POINTS
+) {
+    const centerX = this.canvasSize / 2;
+    const centerY = this.canvasSize / 2;
 
-	// let centerX = width / 2;
-	// let centerY = height / 2;
+    // 创建ConcentricCircles的实例，使用传入的参数或默认值
+    this.backgroundCircles = new ConcentricCircles(numCircles, minRadius, maxRadius, numPoints, centerX, centerY);
+    let {
+        circlesCanvas,
+        circlesArray
+    } = this.backgroundCircles.draw();
+    this.circlesArray = circlesArray;
+    this.circlesCanvas = circlesCanvas;
 
-	// 创建ConcentricCircles的实例，你可以设置参数来匹配你的需求
-	this.backgroundCircles = new ConcentricCircles(numCircles, minRadius, maxRadius, numPoints, this.canvasSize / 2, this.canvasSize / 2);
-	let {
-		circlesCanvas,
-		circlesArray
-	} = this.backgroundCircles.draw();
-	this.circlesArray = circlesArray;
-	this.circlesCanvas = circlesCanvas;
+    this.ellipsePoints = this.backgroundCircles.ellipsePoints;
 
-	this.ellipsePoints = this.backgroundCircles.ellipsePoints;
-
-	this.circlesGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.circlesCanvas, this.circlesArray);
-
+    this.circlesGrayScaleMatrix = convertArrayToGrayScaleMatrix(this.circlesCanvas, this.circlesArray);
 }
+
 
 // 将包含RGBA像素数据的一维数组转换成一个二维灰度值矩阵
 function convertArrayToGrayScaleMatrix(characterCanvas, characterArray) {
@@ -87,11 +83,11 @@ function convertArrayToGrayScaleMatrix(characterCanvas, characterArray) {
 	return matrix;
 }
 
-ChineseCharacter.prototype.drawCharacterCanvas = function () {
+ChineseCharacter.prototype.showCharacter = function () {
 	image(this.characterCanvas, 0, 0);
 }
 
-ChineseCharacter.prototype.drawCirclesCanvas = function () {
+ChineseCharacter.prototype.showConcentricCircles = function () {
 	// Use the canvas or pixels as you wish
 	image(this.circlesCanvas, 0, 0); // For example, draw the canvas to the main display
 }

@@ -1,9 +1,5 @@
-const IMAGE_SIZE = 800; // 400 1200
 const NUM_POINTS = 10000; // 1000 10000
 const NUM_CIRCLES = 40; // 40, 70, 100, 200
-const WIDTH = IMAGE_SIZE;
-const HEIGHT = IMAGE_SIZE;
-const MAX_RADIUS = Math.min(WIDTH, HEIGHT) / 2;
 
 const SCALE_FACTOR = 1; // Super sampling ratio
 
