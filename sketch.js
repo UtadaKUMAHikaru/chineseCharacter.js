@@ -4,7 +4,7 @@ function setup() {
 	createCanvas(myCharacter.defaultConfig.IMAGE_SIZE, myCharacter.defaultConfig.IMAGE_SIZE); 
 	background(255); // 255 0 
 
-	myCharacter.plotCharacter(myCharacter.defaultConfig.IMAGE_SIZE*2/3, myCharacter.defaultConfig.IMAGE_SIZE);  // 调用实例的plotCharacter方法
+	myCharacter.plotCharacter(myCharacter.defaultConfig.FONT_SIZE, myCharacter.defaultConfig.IMAGE_SIZE);  // 调用实例的plotCharacter方法
 	myCharacter.invertCharacterCanvasColors();
 	// myCharacter.showCharacter();
 
@@ -14,24 +14,16 @@ function setup() {
 		maxRadius = myCharacter.defaultConfig.IMAGE_SIZE / 2, // 最大半径
 		numPoints = myCharacter.defaultConfig.NUM_POINTS // 每个椭圆上的点数
 	);
+	// myCharacter.showConcentricCircles();
 
-	// myCharacter.invertCirclesCanvasColors();
-	myCharacter.showConcentricCircles();
+	trimStrategy = myCharacter.defaultConfig.TRIM_STRATEGIES['cos'];
+	amplitude = myCharacter.defaultConfig.AMPLITUDE_RANGE[7];
+	maxTrimRatio = myCharacter.defaultConfig.MAX_TRIM_RATIO
+	trimDirection = myCharacter.defaultConfig.TRIM_DIRECTION
+	console.log("trimStrategy, amplitude, maxTrimRatio, trimDirection: ", trimStrategy, amplitude, maxTrimRatio, trimDirection);
 
-	// myCharacter.findEllipseSegments();
-
-	// // 输出结果，检查segments是否符合预期
-	// console.log(myCharacter.ellipseSegments);
-	// myCharacter.visualizeSegmentsWithColors();
-	// myCharacter.showSegmentCanvas();
-
-	// trimStrategy = TRIM_STRATEGIES['cos'];
-	// amplitude = AMPLITUDE_RANGE[3];
-	// let trimmedSegments = trimSegments(trimStrategy, amplitude, myCharacter.ellipseSegments, MAX_TRIM_RATIO, TRIM_DIRECTION);
-	// // 处理trimmedSegments，可能是可视化或其他操作
-	// myCharacter.ellipseSegments = trimmedSegments; // 例如，更新myCharacter对象的ellipseSegments属性
-
-	// myCharacter.visualizeSegmentsWithColors();
-	// myCharacter.showSegmentCanvas();
+	myCharacter.trimSegments(trimStrategy, amplitude, maxTrimRatio, trimDirection);
+	myCharacter.plotTrimmedSegments();
+	myCharacter.showTrimmedSegments();
 
 }
