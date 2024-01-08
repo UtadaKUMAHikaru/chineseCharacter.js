@@ -4,7 +4,7 @@ function setup() {
 	createCanvas(myCharacter.defaultConfig.IMAGE_SIZE, myCharacter.defaultConfig.IMAGE_SIZE); 
 	background(255); // 255 0 
 
-	myCharacter.plotCharacter(myCharacter.defaultConfig.FONT_SIZE, myCharacter.defaultConfig.IMAGE_SIZE);  // 调用实例的plotCharacter方法
+	myCharacter.plotCharacter(myCharacter.defaultConfig.FONT_SIZE, myCharacter.defaultConfig.FONT_CANVAS_SIZE);  // 调用实例的plotCharacter方法
 	myCharacter.invertCharacterCanvasColors();
 	// myCharacter.showCharacter();
 

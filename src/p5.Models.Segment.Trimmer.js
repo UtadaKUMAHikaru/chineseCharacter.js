@@ -145,7 +145,8 @@ p5.prototype.ChineseCharacter.prototype.plotTrimmedSegments = function () {
 	console.log("this.trimmedSegmentInfos: ", this.trimmedSegmentInfos);
 	
 	let numMidPoints = this.defaultConfig.NUM_MID_POINTS;
-	let trimmedCirclesCanvas = createGraphics(width, height);
+	// let trimmedCirclesCanvas = createGraphics(width, height);
+	let trimmedCirclesCanvas = createGraphics(this.fontCanvasSize, this.fontCanvasSize);
 	
 	trimmedCirclesCanvas.stroke(255, 0, 0); // 例如，用红色标记修剪后的段
 	trimmedCirclesCanvas.strokeWeight(1); // 设置描边粗细

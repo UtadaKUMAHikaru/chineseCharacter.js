@@ -1,5 +1,6 @@
 p5.prototype.ChineseCharacter.prototype.defaultConfig = {
-	IMAGE_SIZE: 2400, // 1200
+	IMAGE_SIZE: 2400, 
+	FONT_CANVAS_SIZE: 400,
 	FONT_SIZE: 300,
 	NUM_POINTS: 10000,
 	NUM_MID_POINTS: 1000,
