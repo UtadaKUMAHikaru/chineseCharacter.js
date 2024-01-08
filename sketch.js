@@ -18,7 +18,7 @@ function main(){
 	// // 输出结果，检查segments是否符合预期
 	// console.log(myCharacter.ellipseSegments);
 	// myCharacter.visualizeSegmentsWithColors();
-	// myCharacter.drawSegmentCanvas();
+	// myCharacter.showSegmentCanvas();
 
 	// trimStrategy = TRIM_STRATEGIES['cos'];
 	// amplitude = AMPLITUDE_RANGE[3];
@@ -27,7 +27,7 @@ function main(){
 	// myCharacter.ellipseSegments = trimmedSegments; // 例如，更新myCharacter对象的ellipseSegments属性
 
 	// myCharacter.visualizeSegmentsWithColors();
-	// myCharacter.drawSegmentCanvas();
+	// myCharacter.showSegmentCanvas();
 	
 }
 

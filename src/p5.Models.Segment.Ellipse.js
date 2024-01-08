@@ -12,7 +12,7 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 
 		// // 可视化原始椭圆点
 		// points.forEach(point => {
-		//   drawEllipsePoint(point['x'], point['y']);
+		//   plotEllipsePoint(point['x'], point['y']);
 		// });
 		// console.log("height, width: ", height, width);
 
@@ -111,7 +111,7 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 
 // 		// // 可视化原始椭圆点
 // 		// points.forEach(point => {
-// 		//   drawEllipsePoint(point['x'], point['y']);
+// 		//   plotEllipsePoint(point['x'], point['y']);
 // 		// });
 // 		// console.log("height, width: ", height, width);
 
@@ -190,7 +190,7 @@ ChineseCharacter.prototype.findEllipseSegments = function () {
 // 			ellipse_segments.forEach(segment => {
 // 				// 绘制每个点或者用线连接点
 // 				segment.forEach(point => {
-// 					// drawEllipsePoint(point.point[0], point.point[1]);
+// 					// plotEllipsePoint(point.point[0], point.point[1]);
 // 					;
 // 				});
 // 			});
